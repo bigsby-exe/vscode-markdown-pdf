@@ -2,24 +2,22 @@ name: Build Extension
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v2
-    with:
-      node-version: 14.x
-  - run: npm install
-  - run: npm install -g vsce
-  - run: npm run vscode:prepublish
-  - run: vsce package
-  - uses: actions/upload-artifact@v4
-    with:
-      name: vscode-markdown-pdf-${{ github.sha }}
-      path: '*.vsix'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - run: npm install
+      - run: npm install -g vsce
+      - run: npm run vscode:prepublish
+      - run: vsce package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vscode-markdown-pdf-${{ github.sha }}
+          path: '*.vsix'
