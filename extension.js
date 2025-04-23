@@ -334,6 +334,10 @@ function makeHtml(data, uri) {
     var mermaidServer = vscode.workspace.getConfiguration('markdown-pdf')['mermaidServer'] || '';
     var mermaid = '<script src=\"' + mermaidServer + '\"></script>';
 
+    // Add Iconify JSON loader for Mermaid
+    const iconifyLoader = "<script>mermaid.registerIconPacks([{ name: 'logos', loader: () => fetch('https://unpkg.com/@iconify-json/logos@1/icons.json').then(res => res.json()) }]);</script>";
+    mermaid += iconifyLoader;
+
     // compile template
     var mustache = require('mustache');
 
